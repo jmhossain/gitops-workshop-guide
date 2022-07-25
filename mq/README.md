@@ -183,7 +183,7 @@ Sync the changes in Argo via the `infra` argo application
 
 
 ### 2. Services - Kustomization.yaml
-2.1  You may edit the Platform Navigator instance yaml and specify a different storage class that supports ReadWriteMany(RWX).
+2.1 [Optional] You may edit the Platform Navigator instance yaml and specify a different storage class that supports ReadWriteMany(RWX).
 Open the yaml file as follows:
 ```bash
 vi ~/$GIT_ORG/multi-tenancy-gitops/0-bootstrap/single-cluster/2-services/argocd/instances/ibm-platform-navigator-instance.yaml
