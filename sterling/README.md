@@ -1,4 +1,3 @@
-
 # GitOps Workshop Guide for **Sterling File Gateway/B2B Integrator**
 
 ## Overview  
@@ -7,25 +6,20 @@
 
 The GitOps concept originated from [Weaveworks](https://www.weave.works/) back in 2017 and the goal was to automate the operations of a Kubernetes (K8s) system using a model external to the system as the source of truth ([History of GitOps](https://www.weave.works/blog/the-history-of-gitops)).
 
-There are various GitOps structure and workflows.  This is our opinionated point of view (PoV) on how `GitOps` can be used to manage the infrastructure, services and application layers of K8s based systems.  It takes into account the various personas interacting with the system and accounts for separation of duties.
+There are various GitOps structure and workflows.  This workshop will cover our opinionated point of view (PoV) on how `GitOps` can be used to manage the infrastructure, services and application layers of K8s based systems.  It takes into account the various personas interacting with the system and accounts for separation of duties.
 
-In this workshop you will learn the following: 
--   Overview of IBM's GitOps structure and workflow.  During the presentation in part one of the workshop, the instructors will present the overview of IBM's GitOps structure and workflow.  The information that is covered can be found in the [IBM GitOps Deployment Production guide](https://production-gitops.dev/gitops/structure/#gitops-principles).
--   IBM's GitOps Receipe for deploying IBM Sterling File Gateway/B2B Integrator.  During part two of this workshop presentation, the instructors will cover an overview of [IBM GitOps Receipe](https://github.com/cloud-native-toolkit/multi-tenancy-gitops/blob/master/doc/sfg-recipe.md) for deploying IBM Sterling File Gateway/B2B Integrator. 
--   Lab 1 - Deploy the IBM Sterling File Gateway/B2B Integrator using the [IBM GitOps Recipe](https://github.com/cloud-native-toolkit/multi-tenancy-gitops/blob/master/doc/sfg-recipe.md)
--   Lab 2 - Validating Use case Requirements for Self-Healing, Upgrade/Rollback and automatic Pod Scaling.
+On the first day of the workshop, we will give you an overview of IBM's GitOps structure and workflow. This workshop guide is meant to be a companion for the 2nd and 3rd day of the workshop, where you will get hands-on experience of deploying IBM Sterling File Gateway/B2B Integrator using our GitOps workflow. There are 4 parts to this workshop guide: 
+-   Shell Environment Setup - Shell env needs to be setup before starting each lab
+-   Pre-Lab 1 - Create your github personal access token, which you'll be using to push to your GitOps repos
+-   Lab 1 - Deploy IBM Sterling File Gateway/B2B Integrator using our GitOps process
+-   Lab 2 - Validate use case requirements: Self-Healing, Upgrade/Rollback and Horizontal Pod Auto-Scaling.
 
-## Lab Prerequsites - Client Environment Setup 
-This part of the workshop is a hands-on lab that the instructors will walk you through to deploy an instances of IBM Sterling File Gateway/B2B Integrator.  You will be assigned a RedHat OpenShift Environment and GitHub Organization in which to run the lab.  You will need to have your IBM Cloud ID and Public GitHub ID, that you provided to sign up for the lab, available.  If you have any issues accessing the environment with your IBM ID and GitHub ID, please consult with your lab instructor.
-
-### Environment Assignment
-You should have received an e-mail from the IBM instructor with your assigned environment access based on your IBM ID and GitHub ID. 
-
-### Login and Setup the IBM Cloud Shell Environment
+## Shell Environment Setup 
+You will be provided with a spreadsheet which will contain links to your assigned environments, and your associated ids. Before you start this section of the workshop, you will need to verify that you can access your assigned Openshift cluster on IBM Cloud using your IBMid. You will also need to verify that you have been added to a Public GitHub Organisation by the IBM team.
 
 1. Login to your IBM Cloud account and access the [IBM Cloud Shell](https://cloud.ibm.com/shell)
 
-*Note that the shell session's [IBM Cloud Shell workspace](https://cloud.ibm.com/docs/cloud-shell?topic=cloud-shell-files#file-persistence) is deleted one hour after the shell session is closed.  If you loose the shell workspace, follow the steps above to re-setup the environment.*
+*Note that the shell session's [IBM Cloud Shell workspace](https://cloud.ibm.com/docs/cloud-shell?topic=cloud-shell-files#file-persistence) is deleted one hour after the shell session is closed.  If you lose the shell workspace, you will need to re-setup the environment.*
 
 2. Install and setup the prequiste CLIs 
 ```bash
@@ -68,48 +62,49 @@ git config --global user.email "Your e-mail"
 git config --global user.name "Your Name"
 ```
 
-6. Launch the `OpenShift Web Console`. From the dropdown menu in the upper right of the page, click Copy Login Command.  Paste the copied command in your IBM Cloud shell.
+6. Switch to your assigned Openshift cluster on IBM cloud.
+![openshift_cluster](images/openshift-ibm-cloud.png "Screenshot of Openshift Cluster on IBM cloud")
+
+Launch the **OpenShift Web Console**. From the dropdown menu on the upper right corner of the OpenShift web console, select `Copy login command`.
 
 ![openshift_web_console](images/openshift-web-console.png "Screenshot of Openshift Web Console")
 
-]
+You should be redirected to a nearly blank page containing a link that says `Display Token`.
 
-7. Lauch and login in to your Argo instance with the credentials provided in the environment e-mail you received from IBM TechZone.
+![openshift_display_token](images/openshift-display-token.png "Screenshot of Openshift Web Console")
 
- ![argocd_login](images/argo-launch-login-page.png "Screenshot of  ArgoCD login page")
+Once you click on `Display Token`, you will be able to see your OpenShift API token as well as the login command for logging into your Openshift cluster on the shell. Copy and paste the line that starts with `oc login` in your IBM Cloud shell.
 
- and verify the Argo applications 
+
+7. Check the spreadsheet provided prior to this workshop for the link to your assigned Argo CD instance. The spreadsheet should also contain the credentials needed for you to login to the ArgoCD instance as admin. Once you have logged in, verify that you have the `infra` and `services` Argo CD applications:
  
- ![argocd_startpage](images/argo-start-page.png "Screenshot of  ArgoCD start page")
+ ![argocd_apps](images/argocd-apps.png "Screenshot of  Argo CD start page")
  
 ---
 
-### Pre-Lab 1 - Create a Personal Access Token
+### Pre-Lab 1 - Create a GitHub Personal Access Token
 
-1. Click on your user at the right top of the page and select Settings
+1. Log in to the public GitHub account which you are using for this workshop
 
-![github_userprofile](images/github-user-profile.png "Screenshot of  GitHub User profile")
+2. Click on your GitHub avatar located at the top right corner of the page and select `Settings` from the dropdown
 
-2. Scroll down until you see **Developer settings** in the left sidebar and click on it.
+![github_settings](images/github-settings.png "Screenshot of GitHub profile dropdown")
 
-3. Click on Personal access tokens.
-![github_pat](images/github-pat.png "Screenshot of  Personal Access Token")
+3. Check the left sidebar, and scroll down until you see **Developer settings**
+![github_dev_settings](images/github-dev-settings.png "Screenshot of Github settings sidebar")
 
-4. Click on **Generate new token**
-![github_pat2](images/github-pat2.png "Screenshot of  Personal Access Token2")
+4. Once you have clicked on **Developer settings**, you will see a new left sidebar where you need to select **Personal access tokens**. You will then see a button you can click to `Generate new token`
+![github_token_generate](images/github-token-generate.png "Screenshot of Personal Access Token settings page")
 
-5. Enter the name of the token and ensure the **repo** box is checked
-![github_pat_name](images/github-pat-name.png "Screenshot of  Enter PAT Name")
-Scroll down and create the new token.
+5. Enter a name for your new personal access token and set a suitable `Expiration`. Ensure the **repo** scope is checked before you click **Generate Token** at the bottom of the page
+![github_token_scope](images/github-token-scope.png "Screenshot of Personal Access Token scope")
 
-6. The token is displayed only once; make sure you copy it. You will need it multiple times
-during the following steps.
-![github_token](images/github-pat-token.png "Screenshot of  GitHub PAT Token")
+6. The token is displayed only once so, make sure you copy it. You will need it multiple times during the next parts of the workshop.
+![github_token](images/github-token.png "Screenshot of GitHub Personal Access Token result")
 
 ---
 
 ## Lab 1 - Deploy the  IBM Sterling File Gateway/B2B Integrator using IBM's GitOps Recipe
-----
 
 
 ### Deploy the Pre-Requisite Infrastructure Components 
