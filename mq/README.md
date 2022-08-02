@@ -94,13 +94,13 @@ Once you click on `Display Token`, you will be able to see your OpenShift API to
 ![github_dev_settings](images/github-dev-settings.png "Screenshot of Github settings sidebar")
 
 4. Once you have clicked on **Developer settings**, you will see a new left sidebar where you need to select **Personal access tokens**. You will then see a button you can click to `Generate new token`
-![github_pat_page](images/github-pat-page.png "Screenshot of Personal Access Token settings page")
+![github_token_generate](images/github-token-generate.png "Screenshot of Personal Access Token settings page")
 
 5. Enter a name for your new personal access token and set a suitable `Expiration`. Ensure the **repo** scope is checked before you click **Generate Token** at the bottom of the page
-![github_pat_scope](images/github-pat-scope.png "Screenshot of Personal Access Token scope")
+![github_token_scope](images/github-token-scope.png "Screenshot of Personal Access Token scope")
 
 6. The token is displayed only once so, make sure you copy it. You will need it multiple times during the next parts of the workshop.
-![github_pat](images/github-pat.png "Screenshot of GitHub Personal Access Token result")
+![github_token](images/github-token.png "Screenshot of GitHub Personal Access Token result")
 
 ---
 
@@ -177,7 +177,7 @@ git push
 ```
 
 Switch to your Argo CD instance, and click on the **infra** application. Click on **REFRESH** located in the top middle of the page. Argo CD will then see the changes you made and automatically propagate the changes to OpenShift. After the **infra** application has finished sync-ing, it should look as follows:
-![argocd_infra_mq](images/argocd-infra-mq.png "Screenshot of Argo CD infra application after changes for deploying CP4I with MQ")
+![argocd_infra_mq](images/argocd-infra.png "Screenshot of Argo CD infra application after changes for deploying CP4I with MQ")
 
 
 ### 2. Services - Kustomization.yaml
@@ -262,7 +262,7 @@ git push
 ```
 
 Switch to your Argo CD instance, and click on the **services** application. Click on **REFRESH** located in the top middle of the page. Argo CD will then see the changes you made and automatically propagate the changes to OpenShift. After the **services** application has finished sync-ing, it should look as follows:
-![argocd_services_mq](images/argocd-services-mq.png "Screenshot of Argo CD services application after changes for CP4I with MQ")
+![argocd_services_mq](images/argocd-services.png "Screenshot of Argo CD services application after changes for CP4I with MQ")
 
 ### 3. Validation
 3.1.  Check the status of the `CommonService` and `PlatformNavigator` custom resource
