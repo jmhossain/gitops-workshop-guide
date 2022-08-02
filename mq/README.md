@@ -63,18 +63,22 @@ git config --global user.name "Your Name"
 ```
 
 6. Switch to your assigned Openshift cluster on IBM cloud.
-![openshift_cluster](images/openshift-cluster.png "Screenshot of Openshift Cluster on IBM cloud")
+![openshift_cluster](images/openshift-ibm-cloud.png "Screenshot of Openshift Cluster on IBM cloud")
 
 Launch the **OpenShift Web Console**. From the dropdown menu on the upper right corner of the OpenShift web console, select `Copy login command`. 
 
 ![openshift_web_console](images/openshift-web-console.png "Screenshot of Openshift Web Console")
 
-You should be redirected to a nearly blank page containing a link that says `Display Token`. Once you click on `Display Token`, you will be able to see your OpenShift API token as well as the login command for logging into your Openshift cluster on the shell. Copy and paste the line that starts with `oc login` in your IBM Cloud shell.
+You should be redirected to a nearly blank page containing a link that says `Display Token`.
+
+![openshift_display_token](images/openshift-display-token.png "Screenshot of Openshift Web Console")
+
+Once you click on `Display Token`, you will be able to see your OpenShift API token as well as the login command for logging into your Openshift cluster on the shell. Copy and paste the line that starts with `oc login` in your IBM Cloud shell.
 
 
 7. Check the spreadsheet provided prior to this workshop for the link to your assigned Argo CD instance. The spreadsheet should also contain the credentials needed for you to login to the ArgoCD instance as admin. Once you have logged in, verify that you have the `infra` and `services` Argo CD applications:
  
- ![argocd_startpage](images/argo-start-page.png "Screenshot of  ArgoCD start page")
+ ![argocd_apps](images/argocd-apps.png "Screenshot of  Argo CD start page")
  
 ---
 
@@ -84,19 +88,19 @@ You should be redirected to a nearly blank page containing a link that says `Dis
 
 2. Click on your GitHub avatar located at the top right corner of the page and select `Settings` from the dropdown
 
-![github_user_profile](images/github-user-profile.png "Screenshot of  GitHub User profile")
+![github_settings](images/github-settings.png "Screenshot of GitHub profile dropdown")
 
 3. Check the left sidebar, and scroll down until you see **Developer settings**
-![github_dev_settings](images/github-dev-settings.png "Screenshot of  Personal Access Token")
+![github_dev_settings](images/github-dev-settings.png "Screenshot of Github settings sidebar")
 
 4. Once you have clicked on **Developer settings**, you will see a new left sidebar where you need to select **Personal access tokens**. You will then see a button you can click to `Generate new token`
-![github_pat2](images/github-pat2.png "Screenshot of  Personal Access Token")
+![github_pat_page](images/github-pat-page.png "Screenshot of Personal Access Token settings page")
 
 5. Enter a name for your new personal access token and set a suitable `Expiration`. Ensure the **repo** scope is checked before you click **Generate Token** at the bottom of the page
-![github_pat_name](images/github-pat-name.png "Screenshot of  Enter PAT Name")
+![github_pat_scope](images/github-pat-scope.png "Screenshot of Personal Access Token scope")
 
 6. The token is displayed only once so, make sure you copy it. You will need it multiple times during the next parts of the workshop.
-![github_token](images/github-pat-token.png "Screenshot of  GitHub PAT Token")
+![github_pat](images/github-pat.png "Screenshot of GitHub Personal Access Token result")
 
 ---
 
@@ -168,11 +172,12 @@ git add -u
 # Finally commit and push the changes
 git commit -m "Deploy infrastructure resources"
 git push
-# Input your github username when prompted for Username
+# Input your Github username when prompted for Username
 # Input the Github Token that you had created earlier when prompted for Password
 ```
 
-Sync the changes in Argo via the `infra` argo application
+Switch to your Argo CD instance, and click on the **infra** application. Click on **REFRESH** located in the top middle of the page. Argo CD will then see the changes you made and automatically propagate the changes to OpenShift. After the **infra** application has finished sync-ing, it should look as follows:
+![argocd_infra_mq](images/argocd-infra-mq.png "Screenshot of Argo CD infra application after changes for deploying CP4I with MQ")
 
 
 ### 2. Services - Kustomization.yaml
@@ -252,11 +257,12 @@ git add -u
 git commit -m "Deploy services resources"
 
 git push
-# Input your github username when prompted for Username
+# Input your Github username when prompted for Username
 # Input the Github Token that you had created earlier when prompted for Password
 ```
 
-Sync the changes in Argo  via the `services` argo application
+Switch to your Argo CD instance, and click on the **services** application. Click on **REFRESH** located in the top middle of the page. Argo CD will then see the changes you made and automatically propagate the changes to OpenShift. After the **services** application has finished sync-ing, it should look as follows:
+![argocd_services_mq](images/argocd-services-mq.png "Screenshot of Argo CD services application after changes for CP4I with MQ")
 
 ### 3. Validation
 3.1.  Check the status of the `CommonService` and `PlatformNavigator` custom resource
