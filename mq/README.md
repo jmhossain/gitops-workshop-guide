@@ -65,11 +65,11 @@ git config --global user.name "Your Name"
 6. Switch to your assigned Openshift cluster on IBM cloud.
 ![openshift_cluster](images/openshift-cluster.png "Screenshot of Openshift Cluster on IBM cloud")
 
-Launch the "OpenShift Web Console". From the dropdown menu on the upper right corner of the OpenShift web console, find and click `Copy login command`. 
+Launch the **OpenShift Web Console**. From the dropdown menu on the upper right corner of the OpenShift web console, select `Copy login command`. 
 
 ![openshift_web_console](images/openshift-web-console.png "Screenshot of Openshift Web Console")
 
-You should be redirected to a nearly blank page containing a link that says "Display Token". Once you click on "Display Token", you will be able to see your OpenShift API token as well as the login command for logging into your Openshift cluster on the shell. Copy and paste the line that starts with `oc login` in your IBM Cloud shell.
+You should be redirected to a nearly blank page containing a link that says `Display Token`. Once you click on `Display Token`, you will be able to see your OpenShift API token as well as the login command for logging into your Openshift cluster on the shell. Copy and paste the line that starts with `oc login` in your IBM Cloud shell.
 
 
 7. Check the spreadsheet provided prior to this workshop for the link to your assigned Argo CD instance. The spreadsheet should also contain the credentials needed for you to login to the ArgoCD instance as admin. Once you have logged in, verify that you have the `infra` and `services` Argo CD applications:
@@ -80,24 +80,22 @@ You should be redirected to a nearly blank page containing a link that says "Dis
 
 ### Pre-Lab 1 - Create a GitHub Personal Access Token
 
-1. Click on your user at the right top of the page and select Settings
+1. Log in to the public GitHub account which you are using for this workshop
+
+2. Click on your GitHub avatar located at the top right corner of the page and select `Settings` from the dropdown
 
 ![github_user_profile](images/github-user-profile.png "Screenshot of  GitHub User profile")
 
-2. Scroll down until you see **Developer settings** in the left sidebar and click on it.
+3. Check the left sidebar, and scroll down until you see **Developer settings**
 ![github_dev_settings](images/github-dev-settings.png "Screenshot of  Personal Access Token")
 
-3. Click on Personal access tokens.
-
-4. Click on **Generate new token**
+4. Once you have clicked on **Developer settings**, you will see a new left sidebar where you need to select **Personal access tokens**. You will then see a button you can click to `Generate new token`
 ![github_pat2](images/github-pat2.png "Screenshot of  Personal Access Token")
 
-5. Enter the name of the token and ensure the **repo** box is checked
+5. Enter a name for your new personal access token and set a suitable `Expiration`. Ensure the **repo** scope is checked before you click **Generate Token** at the bottom of the page
 ![github_pat_name](images/github-pat-name.png "Screenshot of  Enter PAT Name")
-Scroll down and create the new token.
 
-6. The token is displayed only once; make sure you copy it. You will need it multiple times
-during the following steps.
+6. The token is displayed only once so, make sure you copy it. You will need it multiple times during the next parts of the workshop.
 ![github_token](images/github-pat-token.png "Screenshot of  GitHub PAT Token")
 
 ---
