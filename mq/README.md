@@ -63,6 +63,7 @@ git config --global user.name "Your Name"
 ```
 
 6. Switch to your assigned Openshift cluster on IBM cloud.
+
 ![openshift_cluster](images/openshift-ibm-cloud.png "Screenshot of Openshift Cluster on IBM cloud")
 
 Launch the **OpenShift Web Console**. From the dropdown menu on the upper right corner of the OpenShift web console, select `Copy login command`. 
@@ -77,8 +78,8 @@ Once you click on `Display Token`, you will be able to see your OpenShift API to
 
 
 7. Check the spreadsheet provided prior to this workshop for the link to your assigned Argo CD instance. The spreadsheet should also contain the credentials needed for you to login to the ArgoCD instance as admin. Once you have logged in, verify that you have the `infra` and `services` Argo CD applications:
- 
- ![argocd_apps](images/argocd-apps.png "Screenshot of  Argo CD start page")
+
+![argocd_apps](images/argocd-apps.png "Screenshot of  Argo CD start page")
  
 ---
 
@@ -91,15 +92,19 @@ Once you click on `Display Token`, you will be able to see your OpenShift API to
 ![github_settings](images/github-settings.png "Screenshot of GitHub profile dropdown")
 
 3. Check the left sidebar, and scroll down until you see **Developer settings**
-![github_dev_settings](images/github-dev-settings.png "Screenshot of Github settings sidebar")
+
+<img src="images/github-dev-settings.png" width="100">
 
 4. Once you have clicked on **Developer settings**, you will see a new left sidebar where you need to select **Personal access tokens**. You will then see a button you can click to `Generate new token`
+
 ![github_token_generate](images/github-token-generate.png "Screenshot of Personal Access Token settings page")
 
 5. Enter a name for your new personal access token and set a suitable `Expiration`. Ensure the **repo** scope is checked before you click **Generate Token** at the bottom of the page
+
 ![github_token_scope](images/github-token-scope.png "Screenshot of Personal Access Token scope")
 
 6. The token is displayed only once so, make sure you copy it. You will need it multiple times during the next parts of the workshop.
+
 ![github_token](images/github-token.png "Screenshot of GitHub Personal Access Token result")
 
 ---
@@ -107,7 +112,7 @@ Once you click on `Display Token`, you will be able to see your OpenShift API to
 # Lab 1: Deploy Cloud Pak for Integration - MQ capability
 
 ### 1. Infrastructure - Kustomization.yaml
-Open the kustomization.yaml file for the infra layer as follows:
+On your IBM Cloud Shell, open the kustomization.yaml file for the infra layer as follows:
 ```bash
 vi ~/$GIT_ORG/multi-tenancy-gitops/0-bootstrap/single-cluster/1-infra/kustomization.yaml
 ```
@@ -182,7 +187,7 @@ Switch to your Argo CD instance, and click on the **infra** application. Click o
 
 ### 2. Services - Kustomization.yaml
 2.1 [Optional] You may edit the Platform Navigator instance yaml and specify a different storage class that supports ReadWriteMany(RWX).
-Open the yaml file as follows:
+On your IBM Cloud Shell, open the yaml file as follows:
 ```bash
 vi ~/$GIT_ORG/multi-tenancy-gitops/0-bootstrap/single-cluster/2-services/argocd/instances/ibm-platform-navigator-instance.yaml
 ```
@@ -205,7 +210,7 @@ spec:
 ```
 
 2.2  Deploy Services Layer resources.
-Open the kustomization.yaml file for the services layer as follows:
+On your IBM Cloud Shell, open the kustomization.yaml file for the services layer as follows:
 ```bash
 vi ~/$GIT_ORG/multi-tenancy-gitops/0-bootstrap/single-cluster/2-services/kustomization.yaml
 ```
@@ -280,6 +285,7 @@ oc get platformnavigator -n tools -o=jsonpath='{ .items[*].status.conditions[].s
 oc get route -n tools integration-navigator-pn -o template --template='https://{{.spec.host}}'
 ```
 Once you have retrieved the URL and entered it in your browser, you will see a login page
+
 ![ibm_cloudpak_login](images/cloudpak-login.png "Screenshot of  IBM CloudPak login page")
     
 You may choose to login as admin using IBM Provided Credentials. In order to retrieve these IBM Provided Credentials you can use the following command:
