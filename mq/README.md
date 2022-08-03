@@ -93,7 +93,7 @@ Once you click on `Display Token`, you will be able to see your OpenShift API to
 
 3. Check the left sidebar, and scroll down until you see **Developer settings**
 
-<img src="images/github-dev-settings.png" width="100">
+<img src="images/github-dev-settings.png" width="200">
 
 4. Once you have clicked on **Developer settings**, you will see a new left sidebar where you need to select **Personal access tokens**. You will then see a button you can click to `Generate new token`
 
