@@ -269,8 +269,11 @@ git push
 Switch to your Argo CD instance, and click on the **services** application. Click on **REFRESH** located in the top middle of the page. Argo CD will then see the changes you made and automatically propagate the changes to OpenShift. After the **services** application has finished sync-ing, it should look as follows:
 ![argocd_services_mq](images/argocd-services.png "Screenshot of Argo CD services application after changes for CP4I with MQ")
 
-### 3. Validation
-3.1.  Check the status of the `CommonService` and `PlatformNavigator` custom resource
+### 3. OpenShift Use Cases
+The installation of CP4I can take from 30 min to 1 hour to complete so, while we wait for the installation to finish, we'll walk through some of the use cases, including self-healing and auto-scaling, which doesn't depend on CP4I to be up and running. This part of the workshop can be accessed here https://github.com/ad-jrn/OCP-Workshop-Guide
+
+### 4. Validation
+4.1.  Check the status of the `CommonService` and `PlatformNavigator` custom resource
 ```bash
 # Verify the Common Services instance has been deployed successfully
 oc get commonservice common-service -n ibm-common-services -o=jsonpath='{.status.phase}'
@@ -280,7 +283,7 @@ oc get commonservice common-service -n ibm-common-services -o=jsonpath='{.status
 oc get platformnavigator -n tools -o=jsonpath='{ .items[*].status.conditions[].status }'
 # Expected output = True
 ```
-3.2.  Retrieve Platform Navigator Console URL
+4.2.  Retrieve Platform Navigator Console URL
 ```bash
 oc get route -n tools integration-navigator-pn -o template --template='https://{{.spec.host}}'
 ```
@@ -292,3 +295,53 @@ You may choose to login as admin using IBM Provided Credentials. In order to ret
 ```bash
 oc extract -n ibm-common-services secrets/platform-auth-idp-credentials --keys=admin_username,admin_password --to=-
 ```
+
+## 5. Upgrade/Rollback 
+
+In this section of the lab, we see how you can upgrade and roll back the MQ operator version using the GitOps method.
+
+Using the GitOps method we see how the upgrade process is shortened.  We are also able to roll back to previous version if there is an issue.  The GitOps method also provides for traceability as to when and who made the change in the commit record in GitHub.
+
+First, check the installed operators on your Openshift cluster. You can do this by opening your Openshift web console and selecting the Operators dropdown then Installed Operators on the left sidebar of the web console.
+
+![operator_version](images/operator-version.png "Screenshot of version")
+
+Now, switch to your IBM Cloud Shell, and open the `ibm-mq-operator.yaml` file on your main gitops repo as follows:
+```bash
+vi ~/$GIT_ORG/multi-tenancy-gitops/0-bootstrap/single-cluster/2-services/argocd/operators/ibm-mq-operator.yaml
+```
+
+Inside the `ibm-mq-operator.yaml` file, you can change the MQ operator version as follows
+```yaml
+....
+spec:
+  ....
+  source:
+    path: operators/ibm-mq-operator
+    helm:
+      values: |
+        ibm-mq-operator:
+          subscriptions:
+            ibmmq:
+              name: ibm-mq
+              subscription:
+                channel: v1.6     <----change to your desired operator version 
+```
+
+Now deploy the changes by committing and pushing the changes to your `multi-tenancy-gitops` repository:
+```bash
+#change to the `multi-tenancy-gitops` directory
+cd ~/$GIT_ORG/multi-tenancy-gitops
+
+# Verify the changes, and add the files that have been changed
+git status
+git add -u
+ 
+# Finally commit and push the changes
+git commit -m "upgrade MQ operator version"
+git push
+# Input your github username when prompted for Username
+# Input the Github Token that you had created earlier when prompted for Password
+```
+
+Switch to your Argo CD instance, and click on the **services** application. Click on **REFRESH** located in the top middle of the page. Argo CD will then see the changes you made and automatically propagate the changes to OpenShift.
