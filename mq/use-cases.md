@@ -1,4 +1,4 @@
-# OCP Workshop Guide
+# OpenShift Use Cases Guide
 
 ## Overview
 Red Hat OpenShift Container Platform (OCP) is a cloud-based Kubernetes platform for developing and running containerized applications. It is designed for ease-of-use and flexibility for both developers and end-users. OCP enables organizations to build, deploy, and scale applications quickly both on-premises and in the cloud. All while protecting your infrastructure with enterprise-grade security. This produces a more simple access point to underlying infrastructure that can help manage application life cycle and development workflows.
@@ -14,7 +14,7 @@ We will be using your environment that was prepared [earlier.](https://github.co
 
 ## Service Deployment from an Image
 
-1. Navigate to your assigned IBM Cloud Environment. This will be listed in your spreadsheet under IBM Cluster URL. Afterwards, open the OpenShift Web Console in the upper righthand side of your Cluster.
+1. Navigate to your assigned IBM Cloud Environment. This will be listed in your TechZone invitation under Cluster URL. Afterwards, open the OpenShift Web Console in the upper righthand side of your Cluster.
 
 ![Cluster URL](https://user-images.githubusercontent.com/81570140/182544235-0e885a85-4090-4445-8525-9946e11bd705.png)
 
@@ -50,6 +50,7 @@ Let's take a glance at some of our other pods and see the tangible benefits of h
 
 3. In the search bar, type in `nav`.
 
+This is just a default pod we'll be using.
 ![Nav](https://user-images.githubusercontent.com/81570140/182552415-7cd54c46-2ac8-4c50-87b3-b6835ec3d001.png)
 
 4. Select the Owner of one of the running Pods for `integration-navigator`.
@@ -186,3 +187,5 @@ oc logs aaa-useyourown-pod
 ```
 
 Depending on whether or not that Pod is still running, you may receive a lot of output. But as you can see, OCP excels in simplifying the work processes shown today.
+
+And that will conclude our workshops for today! I highly recommend continuing to explore the web console, as it is your own temporary environment. Please refrain from making any permanent changes until after the workshop tomorrow.
