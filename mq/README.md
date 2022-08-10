@@ -11,8 +11,8 @@ There are various GitOps structure and workflows.  This workshop will cover our 
 On the first day of the workshop, we will give you an overview of IBM's GitOps structure and workflow. This workshop guide is meant to be a companion for the 2nd and 3rd day of the workshop, where you will get hands-on experience of deploying CP4I and MQ using our GitOps workflow. There are 4 parts to this workshop guide: 
 -   Shell Environment Setup - Shell env needs to be setup before starting each lab
 -   Pre-Lab 1 - Create your github personal access token, which you'll be using to push to your GitOps repos
--   Lab 1 - Deploy CP4I using our GitOps process
--   Lab 2 - Validate use case requirements: Self-Healing, Upgrade/Rollback and Horizontal Pod Auto-Scaling.
+-   Lab 1 - Deploy CP4I using our GitOps process. Validate use case requirements: Self-Healing, Upgrade/Rollback, Auto-Scaling and Logging/Monitoring.
+-   Lab 2 - Setting up Queue Manager and hands-on of MQ on CP4I
 
 ## Shell Environment Setup 
 You will be provided with a spreadsheet which will contain links to your assigned environments, and your associated ids. Before you start this section of the workshop, you will need to verify that you can access your assigned Openshift cluster on IBM Cloud using your IBMid. You will also need to verify that you have been added to a Public GitHub Organisation by the IBM team.
@@ -93,7 +93,7 @@ Once you click on `Display Token`, you will be able to see your OpenShift API to
 
 3. Check the left sidebar, and scroll down until you see **Developer settings**
 
-<img src="images/github-dev-settings.png" width="200">
+<img src="images/github-dev-settings.png" width="300">
 
 4. Once you have clicked on **Developer settings**, you will see a new left sidebar where you need to select **Personal access tokens**. You will then see a button you can click to `Generate new token`
 
@@ -101,7 +101,7 @@ Once you click on `Display Token`, you will be able to see your OpenShift API to
 
 5. Enter a name for your new personal access token and set a suitable `Expiration`. Ensure the **repo** scope is checked before you click **Generate Token** at the bottom of the page
 
-![github_token_scope](images/github-token-scope.png "Screenshot of Personal Access Token scope")
+<img src="images/github-token-scope.png" width="300">
 
 6. The token is displayed only once so, make sure you copy it. You will need it multiple times during the next parts of the workshop.
 
