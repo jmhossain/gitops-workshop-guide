@@ -101,11 +101,11 @@ Once you click on `Display Token`, you will be able to see your OpenShift API to
 
 5. Enter a name for your new personal access token and set a suitable `Expiration`. Ensure the **repo** scope is checked before you click **Generate Token** at the bottom of the page
 
-<img src="images/github-token-scope.png" width="300">
+<img src="images/github-token-scope.png" width="1000">
 
 6. The token is displayed only once so, make sure you copy it. You will need it multiple times during the next parts of the workshop.
 
-![github_token](images/github-token.png "Screenshot of GitHub Personal Access Token result")
+<img src="images/github-token.png" width="1000">
 
 ---
 
@@ -270,7 +270,7 @@ Switch to your Argo CD instance, and click on the **services** application. Clic
 ![argocd_services_mq](images/argocd-services.png "Screenshot of Argo CD services application after changes for CP4I with MQ")
 
 ### 3. OpenShift Use Cases
-The installation of CP4I can take from 30 min to 1 hour to complete so, while we wait for the installation to finish, we'll walk through some of the use cases, including self-healing and auto-scaling, which doesn't depend on CP4I to be up and running. This part of the workshop can be accessed here https://github.com/ad-jrn/OCP-Workshop-Guide
+The installation of CP4I can take from 30 min to 1 hour to complete so, while we wait for the installation to finish, we'll walk through some of the use cases, including self-healing and auto-scaling, which doesn't depend on CP4I to be up and running. This part of the workshop can be accessed [here] (./use-cases.md)
 
 ### 4. Validation
 4.1.  Check the status of the `CommonService` and `PlatformNavigator` custom resource
@@ -345,3 +345,8 @@ git push
 ```
 
 Switch to your Argo CD instance, and click on the **services** application. Click on **REFRESH** located in the top middle of the page. Argo CD will then see the changes you made and automatically propagate the changes to OpenShift.
+
+## Lab 2 - Setting up Queue Manager and hands-on with MQ on CP4I
+The final part of the hands-on lab is to set up a Queue Manager instance and set it up for pub/sub messaging.
+
+See the [MQ Workshop Guide](https://github.com/filemancp4i/ibmmq) for further instructions to complete Lab 2.
