@@ -38,8 +38,30 @@ echo $PATH
  brew install openshift-cli
  ```
 
-
-After you have installed the OpenShift CLI, it is available using the oc command: 
+### Using oc command
+After you have installed the OpenShift CLI, it is available using the oc command, e.g.: 
 ```bash
-oc <command>
+oc help
+```
+Use the above command to get a list and description of all available CLI commands
+
+### Login to your OpenShift Cluste using oc
+In order to be able to interact with your OpenShift cluster using the OpenShift CLI, you must firsst login to the cluster.
+Switch to your assigned Openshift cluster on IBM cloud.
+
+![openshift_cluster](images/openshift-ibm-cloud.png "Screenshot of Openshift Cluster on IBM cloud")
+
+Launch the **OpenShift Web Console**. From the dropdown menu on the upper right corner of the OpenShift web console, select `Copy login command`. 
+
+![openshift_web_console](images/openshift-web-console.png "Screenshot of Openshift Web Console")
+
+You should be redirected to a nearly blank page containing a link that says `Display Token`.
+
+![openshift_display_token](images/openshift-display-token.png "Screenshot of Openshift Web Console")
+
+Once you click on `Display Token`, you will be able to see your OpenShift API token as well as the login command for logging into your Openshift cluster on the shell. Copy and paste the line that starts with `oc login` in your IBM Cloud shell.
+
+### Create a test project on your OpenShift cluster
+```
+oc new-project test
 ```
