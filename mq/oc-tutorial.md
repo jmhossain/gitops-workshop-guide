@@ -156,4 +156,50 @@ You may also edit your pod directly using `oc edit`.
 ```bash
 oc edit pod hello-world
 ```
+You may start a shell session inside your pod and perform shell commands on your container
+```bash
+oc exec -it hello-world -- sh
+```
 
+### Create new-app
+Let’s build the application with Openshift! Start it with “oc cluster up” then:
+
+$ oc new-app https://github.com/fmarchioni/ocpdemos.git   --context-dir=nodejs-basic --name=nodejs-basic
+--> Found image 6cc06d8 (4 weeks old) in image stream "openshift/nodejs" under tag "4" for "nodejs"
+    Node.js 4 
+    --------- 
+    Platform for building and running Node.js 4 applications
+    Tags: builder, nodejs, nodejs4
+    * The source repository appears to match: nodejs
+    * A source build using source code from https://github.com/fmarchioni/ocpdemos.git will be created
+      * The resulting image will be pushed to image stream "nodejs-basic:latest"
+      * Use 'start-build' to trigger a new build
+    * This image will be deployed in deployment config "nodejs-basic"
+    * Port 8080/tcp will be load balanced by service "nodejs-basic"
+      * Other containers can access this service through the hostname "nodejs-basic"
+--> Creating resources ...
+    imagestream "nodejs-basic" created
+    buildconfig "nodejs-basic" created
+    deploymentconfig "nodejs-basic" created
+    service "nodejs-basic" created
+--> Success
+    Build scheduled, use 'oc logs -f bc/nodejs-basic' to track its progress.
+    Run 'oc status' to view your app.
+Let’s check that the service is available:
+
+$ oc get services
+NAME           CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
+nodejs-basic   172.30.63.30   <none>        8080/TCP   6s
+Finally, let’s expose the route:
+
+$ oc expose service nodejs-basic
+route "nodejs-basic" exposed
+Let’s check the route:
+
+oc get routes
+NAME           HOST/PORT                                    PATH      SERVICES       PORT       TERMINATION
+nodejs-basic   nodejs-basic-myproject.192.168.1.66.xip.io             nodejs-basic   8080-tcp   
+And finally:
+
+$ curl http://nodejs-basic-myproject.192.168.1.66.xip.io
+Hello from NodeJS  at Fri May 26 2017 07:39:53 GMT+0000 (UTC)
