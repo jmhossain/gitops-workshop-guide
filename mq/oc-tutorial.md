@@ -160,7 +160,7 @@ oc exec -it hello-world -- sh
 ```
 
 ### Create new-app
-Let’s build the application with Openshift! Start it with “oc cluster up” then:
+Let’s build an application on OpenShift using `oc new-app`:
 
 ```bash
 oc new-app https://github.com/fmarchioni/ocpdemos.git   --context-dir=nodejs-basic --name=nodejs-basic
