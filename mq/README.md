@@ -122,16 +122,16 @@ You'll need to un-comment some of the k8s resources under the 'resources' field 
 ```yaml
 resources:
 #- argocd/consolelink.yaml
-- argocd/consolenotification.yaml
+#- argocd/consolenotification.yaml
 - argocd/namespace-ibm-common-services.yaml
-- argocd/namespace-ci.yaml
-- argocd/namespace-dev.yaml
-- argocd/namespace-staging.yaml
-- argocd/namespace-prod.yaml
+#- argocd/namespace-ci.yaml
+#- argocd/namespace-dev.yaml
+#- argocd/namespace-staging.yaml
+#- argocd/namespace-prod.yaml
 #- argocd/namespace-cloudpak.yaml
 #- argocd/namespace-istio-system.yaml
 #- argocd/namespace-openldap.yaml
-- argocd/namespace-sealed-secrets.yaml
+#- argocd/namespace-sealed-secrets.yaml
 - argocd/namespace-tools.yaml
 #- argocd/namespace-instana-agent.yaml
 #- argocd/namespace-robot-shop.yaml
@@ -244,9 +244,6 @@ You'll need to un-comment some of the k8s resources under the 'resources' field 
 
 ## IBM Catalogs
 - argocd/operators/ibm-catalogs.yaml
-
-# Sealed Secrets
-- argocd/instances/sealed-secrets.yaml
 ```
 
 Now deploy the resources changes by committing and pushing the changes to your `multi-tenancy-gitops` repository
