@@ -5,7 +5,7 @@ With the OpenShift command-line interface (CLI), the oc command, you can creat
 * Managing projects while restricted by bandwidth resources and the web console is unavailable
 
 ### Installing oc by using the OpenShift mirror repo
-1. Download oc from ![OpenShift mirror repo](https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/)
+1. Download oc from [OpenShift mirror repo](https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/)
 2. Click the binary for your platform
 3. Unpack and unzip the archive.
 4. Move the oc binary to a directory on your PATH. To check your PATH, open a terminal and execute the following command:
@@ -15,14 +15,12 @@ echo $PATH
 
  ### Installing oc by using the OpenShift Web Console
  You can install the OpenShift CLI (oc) binary on macOS by using the following procedure:
- 1. From the web console, click ?.
- ￼
- 2. Click Command Line Tools.
- ￼
- 3. Select the oc binary for macOS platform, and then click Download oc for Mac for x86_64.
- 4. Save the file.
- 5. Unpack and unzip the archive.
- 6. Move the oc binary to a directory on your PATH. To check your PATH, open a terminal and execute the following command:
+ 1. From the web console, click ?, and then select Command Line Tools
+ ![openshift_cli](images/openshift-cli.png "Screenshot of where to installl OpenShift CLI from OpenShift Web Console")
+ 2. Select the CLI binary for your platform
+ 3. Save the file.
+ 4. Unpack and unzip the archive.
+ 5. Move the oc binary to a directory on your PATH. To check your PATH, open a terminal and execute the following command:
  ```bash
  echo $PATH
  ```
@@ -164,42 +162,27 @@ oc exec -it hello-world -- sh
 ### Create new-app
 Let’s build the application with Openshift! Start it with “oc cluster up” then:
 
-$ oc new-app https://github.com/fmarchioni/ocpdemos.git   --context-dir=nodejs-basic --name=nodejs-basic
---> Found image 6cc06d8 (4 weeks old) in image stream "openshift/nodejs" under tag "4" for "nodejs"
-    Node.js 4 
-    --------- 
-    Platform for building and running Node.js 4 applications
-    Tags: builder, nodejs, nodejs4
-    * The source repository appears to match: nodejs
-    * A source build using source code from https://github.com/fmarchioni/ocpdemos.git will be created
-      * The resulting image will be pushed to image stream "nodejs-basic:latest"
-      * Use 'start-build' to trigger a new build
-    * This image will be deployed in deployment config "nodejs-basic"
-    * Port 8080/tcp will be load balanced by service "nodejs-basic"
-      * Other containers can access this service through the hostname "nodejs-basic"
---> Creating resources ...
-    imagestream "nodejs-basic" created
-    buildconfig "nodejs-basic" created
-    deploymentconfig "nodejs-basic" created
-    service "nodejs-basic" created
---> Success
-    Build scheduled, use 'oc logs -f bc/nodejs-basic' to track its progress.
-    Run 'oc status' to view your app.
-Let’s check that the service is available:
+```bash
+oc new-app https://github.com/fmarchioni/ocpdemos.git   --context-dir=nodejs-basic --name=nodejs-basic
+```
 
-$ oc get services
-NAME           CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
-nodejs-basic   172.30.63.30   <none>        8080/TCP   6s
-Finally, let’s expose the route:
+```bash
+oc get services
+```
 
-$ oc expose service nodejs-basic
-route "nodejs-basic" exposed
+Let’s expose the route:
+
+```bash
+oc expose service nodejs-basic
+```
+
 Let’s check the route:
-
+```bash
 oc get routes
-NAME           HOST/PORT                                    PATH      SERVICES       PORT       TERMINATION
-nodejs-basic   nodejs-basic-myproject.192.168.1.66.xip.io             nodejs-basic   8080-tcp   
-And finally:
+```
 
-$ curl http://nodejs-basic-myproject.192.168.1.66.xip.io
-Hello from NodeJS  at Fri May 26 2017 07:39:53 GMT+0000 (UTC)
+And finally access your route using curl:
+
+```bash
+curl <HOST/PORT of route>
+```
